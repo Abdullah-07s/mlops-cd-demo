@@ -1,5 +1,9 @@
+import os
 from flask import Flask, jsonify, request
+
 app = Flask(__name__)
+
+APPLICATION_VERSION = os.environ.get("APP_VERSION", "1.0.0")
 MODEL_VERSION = "1.1"
 
 @app.route("/")
@@ -12,8 +16,9 @@ def home():
 @app.route("/health")
 def health():
     return jsonify({
-        "status": "healthy",
-        "model_version": MODEL_VERSION
+        "application_version": APPLICATION_VERSION,
+        "model_version": MODEL_VERSION,
+        "status": "healthy"
     })
 
 @app.route("/predict", methods=["POST"])
