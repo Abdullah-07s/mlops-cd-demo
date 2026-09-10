@@ -70,6 +70,7 @@ jobs:
           docker run -d \
             --name mlops-api-staging \
             -p 5000:5000 \
+            -e APP_VERSION=${{ needs.build.outputs.version }} \
             ghcr.io/${{ needs.build.outputs.name }}:${{ needs.build.outputs.version }}
       - name: Smoke test
         run: |
@@ -93,6 +94,7 @@ jobs:
           docker run -d \
             --name mlops-api-prod \
             -p 5000:5000 \
+            -e APP_VERSION=${{ needs.build.outputs.version }} \
             ghcr.io/${{ needs.build.outputs.name }}:${{ needs.build.outputs.version }}
       - name: Verify production health
         run: |
